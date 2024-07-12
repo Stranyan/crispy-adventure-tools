@@ -1,16 +1,23 @@
 import struct
 
-hex_str = '42 0a 47 1c'
-
 # hex_str = '47 24 1c 0a'
 # hex_str = '0a 1c 42 47'
 
 # hex_str = '42 0a'
 # hex_str = '47 1c'
 # hex_str = '1c'
-hex_byte = bytes.fromhex(hex_str)
-# 获取字节对象的长度
-byte_length = len(hex_byte)
+
+
+hex_str = '42 0a 47 1c'
+hex_byte_list = [hex_str.replace(' ', '')[i:i+2] for i in range(0, len(hex_str.replace(' ', '')), 2)]
+# hex_word_list = [hex_str.replace(' ', '')[i:i+4] for i in range(0, len(hex_str.replace(' ', '')), 4)]
+# print(hex_word_list)
+
+
+# hex_byte_list_rev = hex_byte_list.copy()
+# hex_byte_list_rev.reverse()
+
+# hex_byte = bytes.fromhex(hex_str)
 
 # 高字在前
 # 低字在前
@@ -35,12 +42,22 @@ type_dic = {
 'd':['double_float', '8', '双精度浮点数'],
 }
 
+# for count in range(2):
+
+hex_byte = bytes.fromhex("".join(hex_byte_list))
+# 获取字节对象的长度
+byte_length = len(hex_byte)
+
+print(hex_byte_list)
+
 for i in type_dic:
     if type_dic[i][1] == str(byte_length):
         float_value_big_endian = struct.unpack(f'>{i}', hex_byte)[0]
         float_value_little_endian = struct.unpack(f'<{i}', hex_byte)[0]
         print(f'{type_dic[i][2]}_大端:{float_value_big_endian}')
         print(f'{type_dic[i][2]}_小端:{float_value_little_endian}')
+            
+    # hex_byte_list.reverse()
 
 
 # x:pad                   byte no value

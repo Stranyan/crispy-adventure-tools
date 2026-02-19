@@ -19,7 +19,7 @@ def redirect(links):
 
 def get_result(links, name):
 
-    # url = redirect(links)
+    # 直接使用播放链接下载音频内容（不再经过 redirect 辅助函数）。
     url = 'https://hifini.com/' + links
 
     response = requests.get(url)
@@ -27,17 +27,17 @@ def get_result(links, name):
     # 检查请求是否成功
     if response.status_code == 200:
         if 'Content-Type' in response.headers:
-            Content_Type = response.headers['Content-Type']
-            if "audio/mp4" in Content_Type:
+            content_type = response.headers['Content-Type']
+            if "audio/mp4" in content_type:
                 last = ".m4a"
-            elif "audio/mpeg" in Content_Type:
+            elif "audio/mpeg" in content_type:
                 last = ".mp3"
-            elif "audio/mp3" in Content_Type:
+            elif "audio/mp3" in content_type:
                 last = ".mp3"
-            elif "audio/wav" in Content_Type:
+            elif "audio/wav" in content_type:
                 last = ".wav"
             else:
-                print(f"不支持的类型：{Content_Type}")
+                print(f"不支持的类型：{content_type}")
                 last = ""
 
             file_name = name + last

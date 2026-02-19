@@ -7,8 +7,14 @@ def get_result():
 
     result = request_html_result.get_result(url, selector)
 
-    if "ERROR" not in result:
-        links_info = [{'name':link.text, 'link':link.get('href')} for link in result.find_all('a') if 'thread-' in link.get('href') and link.get('href') not in excluded_links]
+    if not (isinstance(result, str) and "ERROR" in result):
+        links_info = []
+        for link in result.find_all('a'):
+            href = link.get('href')
+            if not href:
+                continue
+            if 'thread-' in href and href not in excluded_links:
+                links_info.append({'name': link.text, 'link': href})
         return links_info
     else:
         return result

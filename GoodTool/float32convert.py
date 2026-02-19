@@ -19,10 +19,7 @@ hex_byte_list = [hex_str.replace(' ', '')[i:i+2] for i in range(0, len(hex_str.r
 
 # hex_byte = bytes.fromhex(hex_str)
 
-# 高字在前
-# 低字在前
-# 高字节在前
-# 低字节在前
+# 下面会同时按大端和小端两种字节序解析同一段数据，方便对比结果。
 
 type_dic = {
 'c':['char_bytes of length 1', '1', '长度为1的字节'],
